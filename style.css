@@ -1,36 +1,7 @@
-.parent {
-  margin: 20px 50px;
-}
-
 /* Profile block */
 
 .profile {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 2fr 0.5fr 0.5fr;
-  grid-template-areas: "avatar name"
-                       "avatar job"
-                       "avatar employer"
-                       "avatar facts";
-  padding: 20px 0;
-}
-
-.profile-item:nth-child(1) {
-  grid-area: avatar;
-}
-.profile-item:nth-child(2) {
-  grid-area: name;
-}
-.profile-item:nth-child(3) {
-  grid-area: job;
-}
-
-.profile-item:nth-child(4) {
-  grid-area: employer;
-}
-
-.profile-item:nth-child(5) {
-  grid-area: facts;
+  text-align: center;
 }
 
 .name {
@@ -38,14 +9,8 @@
   padding: 20px 0;
 }
 
-.avatar {
-  margin-right: 50px;
-}
-
-.avatar img {
-  border-radius: 50%;
-  max-width: 200px;
-  padding: 5px;
+.icon {
+  margin-bottom: 10px
 }
 
 .icon img {
@@ -53,14 +18,11 @@
   margin-right: 10px;
 }
 
-.job {
-  display: inline-block;
-}
-
 /* Status block */
 
 .status-container {
   max-width: 1020px;
+  margin-left: 1em;
 }
 
 .status {
@@ -69,8 +31,6 @@
   grid-template-rows: 50px 1fr;
   grid-template-areas: "status-avatar status-name"
                        "status-avatar status-content";
-  padding: 20px;
-  margin-left: 20px;
 }
 
 .status-item:nth-child(1) {
@@ -94,8 +54,11 @@
   line-height: 50px;
 }
 
+/* Links block */
 
-
+.links-container {
+  margin-left: 1em;
+}
 
 /* General */
 
@@ -104,7 +67,9 @@
 }
 
 h1 {
-  margin: 10px 0
+  margin: 10px 0;
+  font-size: 2em;
+  word-wrap: break-word;
 }
 
 p {
@@ -114,3 +79,11 @@ p {
 hr {
   background-color: black;
 }
+
+/* Media Queries */
+
+/* Mobile */
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 1em;
+  }
