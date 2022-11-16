@@ -1,9 +1,5 @@
 .parent {
-  display: grid;
-  row-gap: 50px;
   margin: 20px 50px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
 }
 
 /* Profile block */
@@ -14,8 +10,9 @@
   grid-template-rows: 2fr 0.5fr 0.5fr;
   grid-template-areas: "avatar name"
                        "avatar job"
+                       "avatar employer"
                        "avatar facts";
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .profile-item:nth-child(1) {
@@ -27,7 +24,12 @@
 .profile-item:nth-child(3) {
   grid-area: job;
 }
+
 .profile-item:nth-child(4) {
+  grid-area: employer;
+}
+
+.profile-item:nth-child(5) {
   grid-area: facts;
 }
 
@@ -36,9 +38,14 @@
   padding: 20px 0;
 }
 
+.avatar {
+  margin-right: 50px;
+}
+
 .avatar img {
   border-radius: 50%;
   max-width: 200px;
+  padding: 5px;
 }
 
 .icon img {
@@ -52,6 +59,44 @@
 
 /* Status block */
 
+.status-container {
+  max-width: 1020px;
+}
+
+.status {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: "status-avatar status-name"
+                       "status-avatar status-content";
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.status-item:nth-child(1) {
+  grid-area: status-avatar;
+}
+.status-item:nth-child(2) {
+  grid-area: status-name;
+}
+.status-item:nth-child(3) {
+  grid-area: status-content;
+}
+
+
+.status-avatar img {
+  border-radius: 50%;
+  max-width: 50px;
+  margin: 0 20px;
+}
+
+.status-name {
+  line-height: 50px;
+}
+
+
+
+
 /* General */
 
 .box {
@@ -60,4 +105,12 @@
 
 h1 {
   margin: 10px 0
+}
+
+p {
+  word-wrap: break-word;
+}
+
+hr {
+  background-color: black;
 }
