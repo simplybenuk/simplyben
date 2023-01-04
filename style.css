@@ -1,14 +1,24 @@
 /* Profile block */
-
-.profile {
+body {
+  margin: 20px;
+  font-family: sans-serif;
+}
+.profile-card {
   text-align: center;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-around;
+  max-width: 500px;
+  background: #EFF6E0;
+  padding: 20px;
+  color: #01161E;
+  border-bottom: 10px solid #AEC3B0;
 }
 
-.name {
-  font-size: 2rem;
-  padding: 20px 0;
-}
+.avatar {
+  border-radius: 50%
 
+}
 .icon {
   margin-bottom: 10px
 }
@@ -18,14 +28,21 @@
   margin-right: 10px;
 }
 
+.profile-text {
+  margin: auto 10px;
+}
+
 /* Status block */
 
 .status-container {
   max-width: 1020px;
-  margin-left: 1em;
+  margin: 0 auto;
 }
 
 .status {
+  border: 2px solid #598392;
+  border-radius: 10px;
+  padding: 10px;
   display: grid;
   grid-template-columns: 90px 1fr;
   grid-template-rows: 50px 1fr;
@@ -68,7 +85,7 @@
 
 h1 {
   margin: 10px 0;
-  font-size: 2em;
+  font-size: 1.7em;
   word-wrap: break-word;
 }
 
