@@ -1,8 +1,27 @@
 /* Profile block */
 body {
-  margin: 20px;
-  font-family: sans-serif;
+  margin: 0px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+h1, h2 {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#top-section {
+    background-image: url("https://pbs.twimg.com/profile_banners/18057404/1668716110/1500x500");
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .profile-card {
   text-align: center;
   display: flex;
