@@ -8,6 +8,7 @@ h1, h2 {
     background: white;
     padding: 10px 20px;
     border-radius: 10px;
+    text-align:center
 }
 
 #top-section {
@@ -19,6 +20,35 @@ h1, h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#link-btn-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.link-btn {
+    list-style-type: none;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px black;
+}
+
+.link-btn a {
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+.link-btn:hover {
+    box-shadow: 0 0 0;
 }
 
 
