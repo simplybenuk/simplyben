@@ -102,12 +102,6 @@ h1, h2 {
   background-color: grey;
 }
 
-h1 {
-  margin: 10px 0;
-  font-size: 1.7em;
-  word-wrap: break-word;
-}
-
 p {
   word-wrap: break-word;
 }
