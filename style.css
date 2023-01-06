@@ -4,6 +4,9 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+section {
+    margin-bottom: 100px;
+
 h1, h2 {
     background: white;
     padding: 10px 20px;
