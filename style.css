@@ -29,6 +29,7 @@ h1, h2 {
 #link-btn-container {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     max-width: 500px;
     margin: 0 auto;
     padding: 0 10px;
@@ -39,10 +40,11 @@ h1, h2 {
     width: 100px;
     border: 2px solid black;
     border-radius: 5px;
-    padding: 2px 4px;
+    padding: 10px 4px;
     text-align: center;
     text-decoration: none;
     box-shadow: 2px 2px 5px black;
+    margin-bottom: 10px;
 }
 
 .link-btn a {
@@ -90,6 +92,7 @@ h1, h2 {
 .status-container {
   max-width: 1020px;
   margin: 0 auto 100px;
+  padding: 0 10px
 }
 
 .status {
