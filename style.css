@@ -89,7 +89,7 @@ h1, h2 {
 
 .status-container {
   max-width: 1020px;
-  margin: 0 auto;
+  margin: 0 auto 100px;
 }
 
 .status {
