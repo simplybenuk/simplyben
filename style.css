@@ -149,3 +149,19 @@ hr {
 
 /* Media Queries */
 
+
+.iris-images {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.iris-image {
+  max-width: 400px;
+}
+
+.iris-images img {
+  max-width: 100%;
+}
