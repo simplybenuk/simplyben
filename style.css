@@ -2,6 +2,7 @@
 body {
   margin: 0px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #E0E0E0;
 }
 
 section {
@@ -13,6 +14,11 @@ h1, h2 {
     padding: 10px 20px;
     border-radius: 10px;
     text-align:center
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.875rem;
 }
 
 #top-section {
@@ -92,13 +98,14 @@ h1, h2 {
 .status-container {
   max-width: 1020px;
   margin: 0 auto 100px;
-  padding: 0 10px
+  padding: 0 10px;
 }
 
 .status {
-  border: 2px solid #598392;
-  border-radius: 10px;
+  border: 1px solid #598392;
+  background-color: #FFFFFF;
   padding: 10px;
+  margin-bottom: 10px;
   display: grid;
   grid-template-columns: 90px 1fr;
   grid-template-rows: 50px 1fr;

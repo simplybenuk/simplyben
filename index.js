@@ -7,6 +7,7 @@ fetch('status.md')
     let statusHTML = "";
     for (let status of displayStatuses) {
       const [date, ...content] = status.split(": ");
+      const htmlContent = marked.parse(content.join(": "));
       statusHTML += `
         <div class="status">
           <div class="status-item status-avatar">
@@ -16,7 +17,7 @@ fetch('status.md')
             <span><strong>Ben Whitfield-Heap</strong></span> | <span>${date}</span>
           </div>
           <div class="status-item status-content">
-            <p>${content.join(": ")}</p>
+            ${htmlContent}
           </div>
         </div>
       `;
