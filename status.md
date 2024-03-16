@@ -1,3 +1,5 @@
+Mar 24: So, finally got around to doing my talk about moving seat from the Government Digital phased approach. [It's on YouTube](https://youtu.be/Wr8ogKyMFh4?si=6AriieeNrE4pKtlv) if you fancy giving it a watch.
+
 Sep 23: Well that was a little unexpected. My new little girl 👶 came a little early so I'm going to be taking a little time away from work to support my wife and change nappies!
 
 Aug 23: Well this started a lively debate. Read my blog for dxw "[It’s time to phase out – a rethink of the traditional service standard phases](https://www.dxw.com/2023/08/rethinking-the-traditional-service-standard-phases/)" and join the debate on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7095025157013925888/)
