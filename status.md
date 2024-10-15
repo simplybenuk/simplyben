@@ -1,3 +1,5 @@
+Oct 24: It's been a while, but back just after the Spring Bank Holiday, I joined [Methods](https://methods.co.uk). It's been a great first few months and I'm looking forward to pushing ProdOps more across the public sector.
+
 Mar 24: So, finally got around to doing my talk about moving seat from the Government Digital phased approach. [It's on YouTube](https://youtu.be/Wr8ogKyMFh4?si=6AriieeNrE4pKtlv) if you fancy giving it a watch.
 
 Sep 23: Well that was a little unexpected. My new little girl 👶 came a little early so I'm going to be taking a little time away from work to support my wife and change nappies!
