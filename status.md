@@ -1,3 +1,5 @@
+Jan 25: Happy new Year everyone! Looking forward to some changes in 2025, watch this space!
+
 Oct 24: It's been a while, but back just after the Spring Bank Holiday, I joined [Methods](https://methods.co.uk). It's been a great first few months and I'm looking forward to pushing ProdOps more across the public sector.
 
 Mar 24: So, finally got around to doing my talk about moving seat from the Government Digital phased approach. [It's on YouTube](https://youtu.be/Wr8ogKyMFh4?si=6AriieeNrE4pKtlv) if you fancy giving it a watch.
@@ -13,6 +15,3 @@ Jan 23: My last month working with the [FutureNHS](https://future.nhs.uk) team f
 Nov 22: Come on Elon, try and take this down!
 (also follow me on Twitter [simplybenuk](https://twitter.com/simplybenuk)
 or Mastodon! [mastodon.social/@B13](https://mastodon.social/@B13))
-
-
-
