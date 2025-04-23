@@ -1,3 +1,5 @@
+Feb 25: Back in January 2023 I left FutureNHS and now I'm back (kind of). I'm excited to announce that I have just started the position of Head of Product at [Kahootz](https://kahootz.com)
+
 Jan 25: Happy new Year everyone! Looking forward to some changes in 2025, watch this space!
 
 Oct 24: It's been a while, but back just after the Spring Bank Holiday, I joined [Methods](https://methods.co.uk). It's been a great first few months and I'm looking forward to pushing ProdOps more across the public sector.
