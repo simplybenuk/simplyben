@@ -1,3 +1,5 @@
+Apr 25: I did an experiment this month. I built an app and a game using [Lovable](https://lovable.dev/) on my mobile phone. I was amazed at the results. If this is achievable now, what next? Try them for yourself. [SourList](https://sourlist.com/) my SaaS to do list app and [Dodge Balls](https://dodgeballs.simplyben.co.uk/) my free to play game with leaderboard.
+
 Feb 25: Back in January 2023 I left FutureNHS and now I'm back (kind of). I'm excited to announce that I have just started the position of Head of Product at [Kahootz](https://kahootz.com)
 
 Jan 25: Happy new Year everyone! Looking forward to some changes in 2025, watch this space!
