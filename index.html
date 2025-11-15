@@ -27,14 +27,13 @@
 </head>
 <body>
     <main>
-        <figure class="portrait">
-            <img src="img/avatar.jpg" alt="Portrait of Ben Whitfield-Heap">
-        </figure>
-        <div class="intro">
-            <p class="eyebrow">hi, i'm</p>
-            <h1>Ben Whitfield-Heap</h1>
-            <p class="tagline">I’m rebuilding this space. Check back soon.</p>
-        </div>
+        <button class="avatar-button" type="button" aria-describedby="avatar-instructions avatar-status">
+            <img src="img/avatar.jpg" alt="Portrait of Ben Whitfield-Heap" loading="lazy">
+            <span id="avatar-instructions" class="sr-only">Press or tap the portrait five times to reveal what comes next.</span>
+            <span id="avatar-status" class="sr-only" aria-live="polite">You have pressed 0 of 5 times.</span>
+        </button>
     </main>
+
+    <script src="js/avatar-puzzle.js" defer></script>
 </body>
 </html>

@@ -1,9 +1,11 @@
 :root {
   color-scheme: light dark;
-  --bg: #f7f5f2;
-  --card: #ffffffcc;
-  --ink: #1f1f1f;
-  --muted: #6f6f6f;
+  --bg: radial-gradient(circle at top, #f2d3ab, #f7f5f2 55%);
+  --ink: #141414;
+  --halo: #fff7ef;
+  --shadow: rgba(18, 18, 18, 0.25);
+  --accent: #ff7a18;
+  --hole: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.85) 60%);
 }
 
 * {
@@ -14,73 +16,120 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: radial-gradient(circle at top, #f2d3ab, #f7f5f2 55%);
+  background: var(--bg);
   color: var(--ink);
+  transition: background 600ms ease, color 600ms ease;
+  overflow: hidden;
+}
+
+main {
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
-main {
-  background: var(--card);
-  border-radius: 32px;
-  padding: clamp(2rem, 4vw, 4rem);
-  max-width: 560px;
-  width: min(90vw, 560px);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 25px 80px rgba(18, 18, 18, 0.12);
+.avatar-button {
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  width: min(100vmin, 560px);
+  height: min(100vmin, 560px);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 400ms ease;
+  box-shadow: 0 30px 80px var(--shadow);
+  isolation: isolate;
 }
 
-.portrait {
-  margin: 0;
-}
-
-.portrait img {
-  width: 160px;
-  height: 160px;
+.avatar-button img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 6px solid #fff6ef;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: clamp(8px, 1.5vw, 14px) solid var(--halo);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  transition: transform 250ms ease, opacity 250ms ease;
 }
 
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin: 0;
+.avatar-button:hover img,
+.avatar-button:focus-visible img {
+  transform: scale(1.02);
 }
 
-h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin: 0.25rem 0 0.5rem;
+.avatar-button:focus-visible {
+  outline: 4px solid var(--accent);
+  outline-offset: 8px;
 }
 
-.tagline {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--muted);
+.avatar-button--active {
+  transform: scale(0.96);
+  box-shadow: 0 20px 40px var(--shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1115;
-    --card: #161a21;
-    --ink: #f8f8f8;
-    --muted: #8d93a1;
+.avatar-button--vanish {
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+}
+
+body.black-hole {
+  background: #010102;
+  color: #f8f9ff;
+}
+
+body.black-hole::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--hole);
+  opacity: 0;
+  animation: collapse 1.1s forwards ease-in;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.black-hole .avatar-button img {
+  opacity: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes collapse {
+  from {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-button,
+  .avatar-button img {
+    transition: none;
   }
 
-  body {
-    background: radial-gradient(circle at top, #1b2535, #0f1115 55%);
-  }
-
-  .portrait img {
-    border-color: #1b2535;
+  body.black-hole::after {
+    animation: none;
   }
 }
