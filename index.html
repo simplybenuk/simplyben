@@ -1,39 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ben Whitfield-Heap</title>
-
-    <meta name="description" content="A new site is on the way — for now, just me.">
-    <meta name="author" content="Ben Whitfield-Heap">
-
-    <meta property="og:title" content="Ben Whitfield-Heap">
-    <meta property="og:description" content="A new site is on the way — for now, just me.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://simplyben.co.uk/">
-    <meta property="og:image" content="https://simplyben.co.uk/img/avatar.jpg">
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Ben Whitfield-Heap">
-    <meta name="twitter:description" content="A new site is on the way — for now, just me.">
-    <meta name="twitter:image" content="https://simplyben.co.uk/img/avatar.jpg">
-
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <main>
-        <button class="avatar-button" type="button" aria-describedby="avatar-instructions avatar-status">
-            <img src="img/avatar.jpg" alt="Portrait of Ben Whitfield-Heap" loading="lazy">
-            <span id="avatar-instructions" class="sr-only">Press or tap the portrait five times to reveal what comes next.</span>
-            <span id="avatar-status" class="sr-only" aria-live="polite">You have pressed 0 of 5 times.</span>
-        </button>
-    </main>
-
-    <script src="js/avatar-puzzle.js" defer></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simply Ben · Chapter One</title>
+    <meta name="description" content="A playable point-and-click experiment by Ben Whitfield-Heap." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
