@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <section class="chapter-one" aria-live="polite">
-        <div class="chapter-one__content" data-chapter-content>
-          <p class="sr-only">Enable JavaScript to play the chapter.</p>
-        </div>
-      </section>
+    <main class="chapter-one__frame">
+      <div class="chapter-one__content" data-chapter-content>
+        <button class="avatar-button" type="button" aria-describedby="avatar-instructions avatar-status">
+          <img src="img/avatar.jpg" alt="Portrait of Ben Whitfield-Heap" loading="lazy" />
+          <span id="avatar-instructions" class="sr-only">Tap or press the portrait until something changes.</span>
+          <span id="avatar-status" class="sr-only" aria-live="polite">You have tapped 0 times.</span>
+        </button>
+      </div>
     </main>
-    <script type="module" src="./js/chapter1.js"></script>
+    <script type="module" src="./js/avatar-puzzle.js"></script>
   </body>
 </html>

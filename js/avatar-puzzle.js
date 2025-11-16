@@ -3,8 +3,6 @@ const AVATAR_REQUIRED = 5;
 const BLACKOUT_REQUIRED = 9;
 const TOUCH_OFFSET = { x: 0, y: -48 };
 
-const avatarPortrait = './img/avatar.jpg';
-
 const glyphs = [
   { label: '05°', detail: 'LISTEN FOR THE NAME' },
   { label: 'IRIS', detail: 'the watcher remembers' },
@@ -49,19 +47,14 @@ function persistState(state) {
 
 function createAvatarScene(onPress, presses, required) {
   const fragment = document.createDocumentFragment();
-  const remaining = Math.max(required - presses, 0);
-  const statusMessage = remaining > 0
-    ? `You have tapped ${presses} of ${required} times.`
-    : 'The avatar stops resisting. The light collapses.';
-
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'avatar-scene__button';
+  button.className = 'avatar-button';
   button.setAttribute('aria-describedby', 'avatar-instructions avatar-status');
   button.addEventListener('click', onPress);
 
   const img = document.createElement('img');
-  img.src = avatarPortrait;
+  img.src = 'img/avatar.jpg';
   img.alt = 'A portrait, perfectly still.';
   img.loading = 'lazy';
   button.append(img);
@@ -76,7 +69,7 @@ function createAvatarScene(onPress, presses, required) {
   status.id = 'avatar-status';
   status.className = 'sr-only';
   status.setAttribute('aria-live', 'polite');
-  status.textContent = statusMessage;
+  status.textContent = `You have tapped ${presses} of ${required} times.`;
   button.append(status);
 
   fragment.append(button);
@@ -107,12 +100,7 @@ function createBlackoutScene(onPress, presses, required) {
   grain.className = 'blackout-scene__grain';
   grain.setAttribute('aria-hidden', 'true');
 
-  const caption = document.createElement('p');
-  caption.className = 'blackout-scene__caption';
-  caption.setAttribute('aria-hidden', 'true');
-  caption.textContent = 'Breathe. There is still form.';
-
-  container.append(button, grain, caption);
+  container.append(button, grain);
   return container;
 }
 
@@ -141,11 +129,6 @@ function createTorchScene() {
   container.tabIndex = 0;
   container.setAttribute('role', 'application');
   container.setAttribute('aria-label', 'Move the light to read the message');
-
-  const instructions = document.createElement('p');
-  instructions.className = 'torch-instructions';
-  instructions.setAttribute('aria-hidden', 'true');
-  instructions.textContent = 'Hold & sweep';
 
   const content = document.createElement('div');
   content.className = 'torch-content';
@@ -179,7 +162,7 @@ function createTorchScene() {
   srCopy.className = 'sr-only';
   srCopy.textContent = 'The torch reveals a repeated clue: the word “Iris” is the key to the next chapter.';
 
-  container.append(instructions, content, srCopy, overlay);
+  container.append(content, srCopy, overlay);
 
   let position = { x: 50, y: 50 };
   setTorchPosition(container, position.x, position.y);

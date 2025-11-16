@@ -2,11 +2,7 @@
   font-family: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color-scheme: light;
   --ink: #050505;
-  --muted: rgba(0, 0, 0, 0.55);
-  --glow: rgba(0, 0, 0, 0.05);
-  --accent: #111;
-  --accent-strong: #000;
-  --void: #050505;
+  --void: #010101;
   --focus: #0a84ff;
 }
 
@@ -23,110 +19,29 @@ body {
   color: var(--ink);
 }
 
-#root {
-  min-height: 100vh;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-.app-shell {
-  min-height: 100dvh;
+.chapter-one__frame {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  background: #fff;
-}
-
-.game-shell {
-  width: min(1100px, 96vw);
-  aspect-ratio: 16 / 9;
-  border-radius: clamp(18px, 2vw, 32px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
-  background: #05050b;
-}
-
-.game-shell--warm {
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), rgba(5, 5, 10, 0.95));
-}
-
-.game-shell--cold {
-  background: radial-gradient(circle at 70% 30%, rgba(102, 237, 255, 0.08), rgba(4, 8, 16, 0.98));
-}
-
-.game-shell--void {
-  background: radial-gradient(circle at 70% 10%, rgba(255, 255, 255, 0.06), rgba(2, 2, 2, 0.98));
-}
-
-.chapter-one,
-.out-of-bounds {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.out-of-bounds {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  background: #040405;
-  color: var(--muted);
-  letter-spacing: 0.12em;
-  font-size: clamp(1rem, 2vw, 1.4rem);
-}
-
-.out-of-bounds__hint {
-  font-size: 0.8em;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.out-of-bounds__hash {
-  color: var(--accent-strong);
-}
-
-.chapter-one__hud {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  z-index: 3;
-}
-
-.hud-button {
-  background: rgba(5, 5, 8, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  color: var(--muted);
-  padding: 0.45rem 1rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border 180ms ease, color 180ms ease;
-}
-
-.hud-button:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
-
-.hud-button:hover {
-  border-color: var(--accent);
-  color: var(--ink);
+  padding: clamp(1rem, 4vw, 4rem);
 }
 
 .chapter-one__content {
-  width: min(100vw, 600px);
-  min-height: min(100vh, 720px);
+  position: relative;
+  width: min(96vw, 1100px);
+  min-height: min(90vh, 640px);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
 }
 
-.avatar-scene__button {
+.avatar-button {
   border: none;
   background: transparent;
   padding: 0;
@@ -134,43 +49,31 @@ body {
   width: min(70vmin, 420px);
   aspect-ratio: 1 / 1;
   cursor: pointer;
+  transition: transform 220ms ease;
 }
 
-.avatar-scene__button img {
+.avatar-button img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: clamp(6px, 2vw, 12px) solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.25);
+  border: clamp(6px, 2vw, 14px) solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
 }
 
-.avatar-scene__button:hover img,
-.avatar-scene__button:focus-visible img {
-  transform: scale(1.02);
-}
-
-.avatar-scene__button:focus-visible {
+.avatar-button:focus-visible {
   outline: 3px solid var(--focus);
-  outline-offset: 6px;
+  outline-offset: 8px;
 }
 
-.avatar-scene__button:active {
-  transform: scale(0.96);
-}
-
-.avatar-scene__whisper {
-  font-size: 0.95rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+.avatar-button:active {
+  transform: scale(0.97);
 }
 
 .blackout-scene {
   position: absolute;
   inset: 0;
-  background: #010101;
-  color: #060606;
+  background: var(--void);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,23 +96,14 @@ body {
 .blackout-scene__grain {
   position: absolute;
   inset: -50%;
-  opacity: 0.22;
+  opacity: 0.2;
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none"%3E%3Cfilter id="n" x="0" y="0" width="200" height="200" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/%3E%3C/filter%3E%3Crect width="200" height="200" filter="url(%23n)"/%3E%3C/svg%3E');
   animation: drift 20s linear infinite;
 }
 
-.blackout-scene__caption {
-  position: absolute;
-  bottom: 8%;
-  text-transform: uppercase;
-  letter-spacing: 0.6em;
-  color: rgba(255, 255, 255, 0.09);
-  font-size: 0.75rem;
-}
-
 .torch-scene {
-  width: 100%;
-  height: 100%;
+  width: min(1100px, 96vw);
+  aspect-ratio: 16 / 9;
   position: relative;
   background: radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.04), #020203);
   color: #f7f1df;
@@ -277,16 +171,6 @@ body {
   transition: background 100ms linear;
 }
 
-.torch-instructions {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  color: rgba(255, 255, 255, 0.4);
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -309,12 +193,6 @@ body {
 }
 
 @media (max-width: 640px) {
-  .chapter-one__hud {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-  }
-
   .torch-content {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     letter-spacing: 0.14em;

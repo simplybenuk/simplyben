@@ -1,6 +1,6 @@
 # simplyben
 
-A point-and-click puzzle story disguised as a personal site. Everything is now plain HTML, CSS, and vanilla JavaScript so GitHub Pages can serve it directly without a build step. Progress is saved to `localStorage` so the chapter remembers where you left off.
+A point-and-click puzzle story disguised as a personal site. Everything is plain HTML, CSS, and vanilla JavaScript so GitHub Pages can serve it directly without a build step. Progress is saved to `localStorage` so the chapter remembers where you left off.
 
 ## Chapter 1 flow
 
@@ -8,7 +8,7 @@ A point-and-click puzzle story disguised as a personal site. Everything is now p
 2. **Blackout** – Prod the void until a seam opens.
 3. **Torch** – Sweep a spotlight (pointer, touch, or keyboard) to reveal the repeated "Iris" clue.
 
-The chapter UI is rendered inside `index.html`, styled by `style.css`, and orchestrated by `js/chapter1.js`. The script manages a tiny state machine and persists it via `localStorage.chapter1_state`. The “Reset memory” button wipes that storage entry so you can replay the sequence quickly while testing.
+The chapter UI is rendered inside `index.html`, styled by `style.css`, and orchestrated by `js/avatar-puzzle.js`. The script manages a tiny state machine and persists it via `localStorage.chapter1_state` so replaying is as simple as clearing storage for that key.
 
 ## Working locally
 
