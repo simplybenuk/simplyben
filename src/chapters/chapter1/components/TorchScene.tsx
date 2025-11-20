@@ -64,11 +64,12 @@ export function TorchScene() {
     });
   };
 
-  const overlayStyle: CSSProperties = {
-    ['--torch-x' as '--torch-x']: `${torchPosition.x}%`,
-    ['--torch-y' as '--torch-y']: `${torchPosition.y}%`,
-    ['--torch-radius' as '--torch-radius']: 'clamp(120px, 20vmin, 320px)',
-  };
+  const overlayStyle: CSSProperties &
+    Record<'--torch-x' | '--torch-y' | '--torch-radius', string> = {
+      '--torch-x': `${torchPosition.x}%`,
+      '--torch-y': `${torchPosition.y}%`,
+      '--torch-radius': 'clamp(120px, 20vmin, 320px)',
+    };
 
   return (
     <div
