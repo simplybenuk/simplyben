@@ -6,18 +6,9 @@
     <title>Simply Ben · Chapter One</title>
     <meta name="description" content="A playable point-and-click experiment by Ben Whitfield-Heap." />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <main class="chapter-one__frame">
-      <div class="chapter-one__content" data-chapter-content>
-        <button class="avatar-button" type="button" aria-describedby="avatar-instructions avatar-status">
-          <img src="img/avatar.jpg" alt="Portrait of Ben Whitfield-Heap" loading="lazy" />
-          <span id="avatar-instructions" class="sr-only">Tap or press the portrait until something changes.</span>
-          <span id="avatar-status" class="sr-only" aria-live="polite">You have tapped 0 times.</span>
-        </button>
-      </div>
-    </main>
-    <script type="module" src="./js/avatar-puzzle.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
