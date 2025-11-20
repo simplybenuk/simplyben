@@ -27,6 +27,15 @@ body {
   min-height: 100vh;
 }
 
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 4vw, 40px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.06));
+}
+
 .chapter-one,
 .out-of-bounds {
   width: 100%;
@@ -46,6 +55,9 @@ body {
   position: relative;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
   background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-shell--warm {
