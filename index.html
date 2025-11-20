@@ -1,14 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Simply Ben · Chapter One</title>
-    <meta name="description" content="A playable point-and-click experiment by Ben Whitfield-Heap." />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simply Ben</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      overflow: hidden;
+      touch-action: manipulation;
+      font-family: system-ui, sans-serif;
+    }
+
+    #avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      user-select: none;
+    }
+
+    #avatar.wiggle {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    /* Optional fade on navigation */
+    .fade-out {
+      animation: fadeout 0.5s forwards;
+    }
+
+    @keyframes fadeout {
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <img
+    id="avatar"
+    src="img/avatar.jpg"
+    alt="Ben, looking deceptively normal despite what you're about to trigger."
+  />
+
+  <script>
+    let clicks = 0;
+    const avatar = document.getElementById('avatar');
+
+    avatar.addEventListener('pointerdown', () => {
+      clicks++;
+
+      // Tiny wiggle for feedback
+      avatar.classList.add('wiggle');
+      setTimeout(() => avatar.classList.remove('wiggle'), 120);
+
+      if (clicks === 5) {
+        // Dramatic fade before transport
+        document.body.classList.add("fade-out");
+
+        setTimeout(() => {
+          window.location.href = "/chapter1/";
+        }, 450);
+      }
+    });
+  </script>
+</body>
 </html>
