@@ -15,7 +15,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, sans-serif;
       overflow: hidden;
       touch-action: manipulation;
       text-align: center;
@@ -49,15 +49,16 @@
       50%      { opacity: 0.8; transform: scale(1.2); }
     }
 
+    /* Hint moved UP on screen */
     #hint {
       position: fixed;
-      bottom: 18px;
+      bottom: 70px;   /* originally 18px — now moved up */
       left: 20px;
       font-size: 0.75rem;
       color: #333;
       user-select: none;
-      transition: color 0.3s ease, opacity 0.3s ease;
       opacity: 0.7;
+      transition: color 0.3s ease, opacity 0.3s ease;
     }
 
     #hint.active {
@@ -65,6 +66,7 @@
       opacity: 1;
     }
 
+    /* LinkedIn link stays bottom-right */
     #link-wrapper {
       position: fixed;
       bottom: 18px;
@@ -86,8 +88,7 @@
       border-bottom: 1px dashed #8ab4ff66;
     }
 
-    #link-wrapper a:hover,
-    #link-wrapper a:focus-visible {
+    #link-wrapper a:hover {
       border-bottom-style: solid;
     }
   </style>
@@ -95,33 +96,20 @@
 
 <body>
 
-  <div id="message-main">
-    This part of the story is not here yet.
-  </div>
-  <div id="status">
-    You can wait. Or you can try something else.
-  </div>
+  <div id="message-main">This part of the story hasn’t arrived yet.</div>
+  <div id="status">You can wait. Or you can try something else.</div>
   <div id="dot">•</div>
 
-  <div id="hint">tapping definitely does not help&nbsp;.&nbsp;.&nbsp;.&nbsp;probably</div>
+  <div id="hint">tapping doesn’t help&nbsp;.&nbsp;.&nbsp;.&nbsp;probably</div>
 
   <div id="link-wrapper">
-    <span>
-      While you wait, you can inspect my
-      <a href="https://www.linkedin.com/in/simplyben" target="_blank" rel="noreferrer">
-        professional disguise
-      </a>.
-    </span>
+    While you wait, you can inspect my
+    <a href="https://www.linkedin.com/in/simplyben" target="_blank" rel="noreferrer">
+      professional disguise
+    </a>.
   </div>
 
   <script>
-    /*
-      Interaction:
-      - Each tap/click anywhere on the page increments a counter.
-      - After a few taps, the hint text “wakes up”.
-      - After enough taps, we reveal the LinkedIn link with a cheeky line.
-    */
-
     let taps = 0;
     const messageMain = document.getElementById("message-main");
     const status = document.getElementById("status");
@@ -137,13 +125,13 @@
       }
 
       if (taps === 6) {
-        status.textContent = "Okay, you're clearly not a passive observer.";
+        status.textContent = "Okay, you’re clearly not a passive observer.";
       }
 
       if (taps === 9) {
         linkWrapper.classList.add("visible");
-        status.textContent = "Fine. Here's something vaguely sensible while this chapter loads itself in.";
-        messageMain.textContent = "The next chapter will show up when it's ready. Unlike most roadmaps.";
+        status.textContent = "Fine. Here’s something vaguely sensible while this chapter loads itself in.";
+        messageMain.textContent = "The next chapter will show up when it’s ready. Unlike most roadmaps.";
       }
     });
   </script>
