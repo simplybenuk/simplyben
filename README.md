@@ -1,6 +1,6 @@
 # simplyben
 
-A point-and-click puzzle story disguised as a personal site. The experience is intentionally minimal: one route per chapter, no traditional navigation, and everything rendered client-side so it can ship to GitHub Pages without a server.
+A point-and-click puzzle story disguised as a personal site. The experience is intentionally minimal: one chapter at a time, no traditional navigation, and everything rendered client-side so it can ship to GitHub Pages without a server.
 
 ## Stack
 
@@ -22,6 +22,15 @@ The chapter logic is isolated inside `src/chapters/chapter1` with a small state 
 
 Player progress for each chapter is stored locally (e.g. `localStorage.chapter1_state`) so returning visitors resume where they left off. A small “Reset memory” control lets you start the sequence again during development/testing.
 
+## Chapter 2
+
+Chapter 2 now exists as a standalone static page at `chapter2/index.html`.
+
+- It keeps the same minimalist tone, with subtle tap interactions that progressively reveal more text.
+- After enough interaction, it surfaces an external “professional disguise” link as a temporary destination while the chapter evolves.
+
+The Chapter 1 maze (`chapter1/index.html`) links directly into Chapter 2 when the exit is reached, so the two chapters now form a connected path in production.
+
 ## Development
 
 ```bash
@@ -30,6 +39,11 @@ npm run dev
 ```
 
 The dev server runs at <http://localhost:5173> by default. Because the router uses hash-based URLs, you can refresh without worrying about 404s.
+
+Additional static chapter entry points are available at:
+
+- <http://localhost:5173/chapter1/>
+- <http://localhost:5173/chapter2/>
 
 To create a production build:
 
