@@ -47,8 +47,8 @@ Rationale:
 
 - **Chapters** are the top-level units and can map to routes:
   - `#/` → Chapter 1
-  - `#/chapter2` → Chapter 2
-  - `#/chapter3` → etc. (when they exist)
+  - `#/chapter2` → Chapter 2 (Signal Relay)
+  - `#/chapter3` → Next Chapter (Pending)
 - **Puzzles** live *inside* chapters as **state**, not separate URLs.
 
 Goal:
