@@ -27,7 +27,7 @@ Player progress for each chapter is stored locally (e.g. `localStorage.chapter1_
 Chapter 2 now lives at `chapter2/index.html` as a standalone static puzzle called **Signal Relay**.
 
 - You must replay short direction sequences across 3 rounds.
-- It supports keyboard input (Arrow keys / WASD) and touch input via on-screen controls, so it is playable on desktop and mobile.
+- It uses a minimalist 4-pad pattern memory game with click/tap controls for desktop and mobile play.
 - Completing the puzzle advances to `/chapter3/`.
 
 ## Next Chapter (Pending)

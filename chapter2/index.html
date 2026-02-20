@@ -3,19 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chapter 2 — Signal Relay</title>
+  <title>Chapter 2</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #06090f;
-      --panel: #121a29;
-      --panel-border: #2a3a57;
-      --accent: #7ec8ff;
-      --accent-strong: #42a5ff;
-      --ok: #6bf2a3;
-      --warn: #ff8f8f;
-      --text: #e6eefc;
-      --muted: #9aaccc;
+      --bg: #07090f;
+      --panel: #121622;
+      --line: #2a3248;
+      --text: #d4def6;
     }
 
     * { box-sizing: border-box; }
@@ -23,291 +18,246 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #101a2d 0, var(--bg) 62%);
-      color: var(--text);
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #161c2d 0%, var(--bg) 62%);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      padding: 16px;
+      color: var(--text);
       touch-action: manipulation;
+      padding: 16px;
     }
 
     .game {
-      width: min(640px, 100%);
-      background: linear-gradient(180deg, #17233a 0%, #0d1524 100%);
-      border: 1px solid var(--panel-border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      width: min(420px, 100%);
+      background: linear-gradient(180deg, #171c2b 0%, var(--panel) 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.45);
     }
 
-    h1 {
-      font-size: clamp(1.2rem, 3.6vw, 1.7rem);
-      margin: 0 0 6px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      min-height: 32px;
     }
 
-    .subtitle {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .status {
-      min-height: 24px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .status.error { color: var(--warn); }
-    .status.success { color: var(--ok); }
-
-    .sequence {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .step {
-      border: 1px solid #395070;
-      border-radius: 10px;
-      padding: 8px 6px;
-      text-align: center;
-      color: #6f88ab;
-      background: #0d1728;
-      font-size: 0.84rem;
-    }
-
-    .step.done {
-      border-color: #3f8f6e;
-      color: var(--ok);
-      background: #102920;
-    }
-
-    .step.current {
-      border-color: var(--accent-strong);
-      color: var(--accent);
-      box-shadow: inset 0 0 0 1px #1b2f4d;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      max-width: 280px;
-      margin: 0 auto;
-    }
-
-    .controls button {
-      min-height: 62px;
-      border-radius: 12px;
-      border: 1px solid #375580;
-      background: #10213a;
-      color: var(--text);
-      font-size: 1.2rem;
-      font-weight: 700;
+    #progress {
+      font-size: 0.82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: 0.8;
       user-select: none;
+    }
+
+    #reset {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid #3a4563;
+      background: #1e2640;
+      color: #c6d7ff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #reset:active { transform: translateY(1px) scale(.98); }
+
+    .pads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      aspect-ratio: 1 / 1;
+    }
+
+    .pad {
+      border: 0;
+      border-radius: 12px;
+      opacity: .78;
+      transition: opacity .12s ease, transform .12s ease, filter .12s ease;
+      cursor: pointer;
       touch-action: manipulation;
     }
 
-    .controls button:active,
-    .controls button.active {
-      transform: translateY(1px) scale(0.98);
-      background: #173258;
-      border-color: var(--accent-strong);
+    .pad:active,
+    .pad.active {
+      opacity: 1;
+      transform: scale(.98);
+      filter: brightness(1.2);
     }
 
-    .empty { visibility: hidden; }
+    .pad[data-pad="0"] { background: #e5526d; }
+    .pad[data-pad="1"] { background: #4f8ef7; }
+    .pad[data-pad="2"] { background: #f0c349; }
+    .pad[data-pad="3"] { background: #49c983; }
 
-    .hint {
-      margin-top: 14px;
+    #status {
+      margin-top: 10px;
+      min-height: 1.2em;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.85rem;
-      line-height: 1.4;
+      font-size: 0.82rem;
+      opacity: .65;
+      user-select: none;
     }
 
-    .next-link {
-      display: inline-block;
-      margin-top: 14px;
-      color: #97d5ff;
+    #next-link {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
       text-decoration: none;
-      border-bottom: 1px dashed #97d5ff66;
+      color: #9fcdff;
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s ease;
     }
 
-    .next-link.visible {
-      opacity: 1;
+    #next-link.visible {
+      opacity: .95;
       pointer-events: auto;
     }
   </style>
 </head>
 <body>
   <main class="game">
-    <h1>Chapter 2: Signal Relay</h1>
-    <p class="subtitle">Repeat each direction sequence correctly to open the gate.</p>
-    <div id="status" class="status">Round 1 of 3. Watch closely…</div>
-    <div id="sequence" class="sequence" aria-live="polite"></div>
-
-    <div class="controls" role="group" aria-label="Direction controls">
-      <button class="empty" tabindex="-1" aria-hidden="true">.</button>
-      <button data-dir="up" aria-label="Up">▲</button>
-      <button class="empty" tabindex="-1" aria-hidden="true">.</button>
-      <button data-dir="left" aria-label="Left">◀</button>
-      <button data-dir="down" aria-label="Down">▼</button>
-      <button data-dir="right" aria-label="Right">▶</button>
+    <div class="topbar">
+      <div id="progress"></div>
+      <button id="reset" aria-label="Reset game" title="Reset">↺</button>
     </div>
 
-    <p class="hint">Desktop: Arrow keys or WASD. Mobile: tap the direction pad.</p>
-    <a id="next-link" class="next-link" href="/chapter3/">Continue to next chapter pending →</a>
+    <div class="pads" role="group" aria-label="Pattern pads">
+      <button class="pad" data-pad="0" aria-label="Pad 1"></button>
+      <button class="pad" data-pad="1" aria-label="Pad 2"></button>
+      <button class="pad" data-pad="2" aria-label="Pad 3"></button>
+      <button class="pad" data-pad="3" aria-label="Pad 4"></button>
+    </div>
+
+    <div id="status" aria-live="polite"></div>
+    <a id="next-link" href="/chapter3/">continue →</a>
   </main>
 
   <script>
-    const DIRECTIONS = ["up", "down", "left", "right"];
-    const SYMBOLS = { up: "▲", down: "▼", left: "◀", right: "▶" };
-    const KEY_MAP = {
-      KeyW: "up", ArrowUp: "up",
-      KeyS: "down", ArrowDown: "down",
-      KeyA: "left", ArrowLeft: "left",
-      KeyD: "right", ArrowRight: "right"
-    };
+    const padEls = Array.from(document.querySelectorAll('.pad'));
+    const progressEl = document.getElementById('progress');
+    const statusEl = document.getElementById('status');
+    const nextLinkEl = document.getElementById('next-link');
+    const resetEl = document.getElementById('reset');
 
-    const statusEl = document.getElementById("status");
-    const sequenceEl = document.getElementById("sequence");
-    const nextLinkEl = document.getElementById("next-link");
-    const buttons = Array.from(document.querySelectorAll("button[data-dir]"));
-
-    let round = 1;
+    const rounds = [3, 4, 5];
+    let roundIndex = 0;
     let pattern = [];
     let cursor = 0;
-    let acceptingInput = false;
+    let accepting = false;
 
-    function randomDirection() {
-      return DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const randPad = () => Math.floor(Math.random() * 4);
+
+    function setProgress() {
+      progressEl.textContent = `ROUND ${Math.min(roundIndex + 1, 3)}/3`;
     }
 
-    function makePattern() {
-      const length = round + 2; // 3, 4, 5
-      pattern = Array.from({ length }, randomDirection);
-      cursor = 0;
-      renderPattern();
-    }
-
-    function renderPattern() {
-      sequenceEl.innerHTML = "";
-      pattern.forEach((dir, i) => {
-        const step = document.createElement("div");
-        step.className = "step";
-        if (i < cursor) {
-          step.classList.add("done");
-          step.textContent = SYMBOLS[dir];
-        } else if (i === cursor && acceptingInput) {
-          step.classList.add("current");
-          step.textContent = "?";
-        } else {
-          step.textContent = "•";
-        }
-        sequenceEl.appendChild(step);
-      });
-    }
-
-    function setStatus(text, cls = "") {
-      statusEl.className = `status ${cls}`.trim();
+    function setStatus(text) {
       statusEl.textContent = text;
     }
 
-    async function showPattern() {
-      acceptingInput = false;
-      renderPattern();
-      setStatus(`Round ${round} of 3. Memorise the pattern…`);
+    function resetRoundState() {
+      cursor = 0;
+      nextLinkEl.classList.remove('visible');
+      setProgress();
+    }
 
-      for (let i = 0; i < pattern.length; i++) {
-        const dir = pattern[i];
-        const btn = buttons.find((b) => b.dataset.dir === dir);
-        if (btn) {
-          btn.classList.add("active");
-          await delay(300);
-          btn.classList.remove("active");
-          await delay(160);
-        }
+    async function flashPad(index, duration = 300) {
+      const el = padEls[index];
+      if (!el) return;
+      el.classList.add('active');
+      await wait(duration);
+      el.classList.remove('active');
+    }
+
+    function buildPattern() {
+      const length = rounds[roundIndex];
+      pattern = Array.from({ length }, randPad);
+      cursor = 0;
+    }
+
+    async function playPattern() {
+      accepting = false;
+      setStatus('');
+      await wait(250);
+      for (const step of pattern) {
+        await flashPad(step, 260);
+        await wait(140);
       }
+      accepting = true;
+      setStatus('');
+    }
 
-      acceptingInput = true;
-      setStatus(`Your turn: step ${cursor + 1} of ${pattern.length}`);
-      renderPattern();
+    async function failAndReplay() {
+      accepting = false;
+      cursor = 0;
+      setStatus('×');
+      await wait(500);
+      setStatus('');
+      playPattern();
     }
 
     function completeGame() {
-      acceptingInput = false;
-      setStatus("Signal stable. Path unlocked.", "success");
-      nextLinkEl.classList.add("visible");
+      accepting = false;
+      setStatus('•');
+      nextLinkEl.classList.add('visible');
       setTimeout(() => {
-        window.location.href = "/chapter3/";
-      }, 1200);
+        window.location.href = '/chapter3/';
+      }, 900);
     }
 
-    function failStep() {
-      acceptingInput = false;
-      cursor = 0;
-      setStatus("Signal mismatch. Restarting round…", "error");
-      renderPattern();
-      setTimeout(() => {
-        showPattern();
-      }, 700);
+    async function advanceRound() {
+      roundIndex += 1;
+      if (roundIndex >= rounds.length) {
+        completeGame();
+        return;
+      }
+      resetRoundState();
+      buildPattern();
+      await wait(500);
+      playPattern();
     }
 
-    function handleDirection(dir) {
-      if (!acceptingInput || !dir) return;
+    function onPadInput(index) {
+      if (!accepting) return;
+      flashPad(index, 110);
 
-      const expected = pattern[cursor];
-      if (dir !== expected) {
-        failStep();
+      if (index !== pattern[cursor]) {
+        failAndReplay();
         return;
       }
 
-      cursor++;
-      renderPattern();
-
+      cursor += 1;
       if (cursor >= pattern.length) {
-        if (round >= 3) {
-          completeGame();
-        } else {
-          round++;
-          round++;
-          acceptingInput = false;
-          setTimeout(() => {
-            setStatus(`Round ${round - 1} complete. Preparing round ${round}…`, "success");
-            makePattern();
-            showPattern();
-          }, 800);
-        }
-      } else {
-        setStatus(`Your turn: step ${cursor + 1} of ${pattern.length}`);
+        advanceRound();
       }
     }
 
-    buttons.forEach((button) => {
-      const dir = button.dataset.dir;
-      const onPress = (e) => {
-        if (e) e.preventDefault();
-        handleDirection(dir);
-      };
-      button.addEventListener("pointerdown", onPress);
+    function hardReset() {
+      roundIndex = 0;
+      resetRoundState();
+      buildPattern();
+      playPattern();
+    }
+
+    padEls.forEach((el, idx) => {
+      el.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        onPadInput(idx);
+      });
     });
 
-    window.addEventListener("keydown", (event) => {
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-      if (!dir) return;
-      event.preventDefault();
-      handleDirection(dir);
+    resetEl.addEventListener('click', () => {
+      hardReset();
     });
 
-    makePattern();
-    showPattern();
+    hardReset();
   </script>
 </body>
 </html>
