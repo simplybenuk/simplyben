@@ -3,137 +3,261 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Next Chapter</title>
-
+  <title>Chapter 2</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07090f;
+      --panel: #121622;
+      --line: #2a3248;
+      --text: #d4def6;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #222 0, #050505 55%, #000 100%);
-      color: #c7c7c7;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, sans-serif;
-      overflow: hidden;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #161c2d 0%, var(--bg) 62%);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
       touch-action: manipulation;
-      text-align: center;
-      letter-spacing: 0.04em;
+      padding: 16px;
     }
 
-    #message-main {
-      font-size: 1rem;
-      opacity: 0.9;
-      user-select: none;
-      max-width: 80%;
+    .game {
+      width: min(420px, 100%);
+      background: linear-gradient(180deg, #171c2b 0%, var(--panel) 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.45);
     }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      min-height: 32px;
+    }
+
+    #progress {
+      font-size: 0.82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    #reset {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid #3a4563;
+      background: #1e2640;
+      color: #c6d7ff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #reset:active { transform: translateY(1px) scale(.98); }
+
+    .pads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      aspect-ratio: 1 / 1;
+    }
+
+    .pad {
+      border: 0;
+      border-radius: 12px;
+      opacity: .78;
+      transition: opacity .12s ease, transform .12s ease, filter .12s ease;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .pad:active,
+    .pad.active {
+      opacity: 1;
+      transform: scale(.98);
+      filter: brightness(1.2);
+    }
+
+    .pad[data-pad="0"] { background: #e5526d; }
+    .pad[data-pad="1"] { background: #4f8ef7; }
+    .pad[data-pad="2"] { background: #f0c349; }
+    .pad[data-pad="3"] { background: #49c983; }
 
     #status {
       margin-top: 10px;
-      font-size: 0.9rem;
-      opacity: 0.7;
+      min-height: 1.2em;
+      text-align: center;
+      font-size: 0.82rem;
+      opacity: .65;
       user-select: none;
     }
 
-    #dot {
-      margin-top: 18px;
-      font-size: 1.8rem;
-      opacity: 0.4;
-      animation: blink 1.6s infinite ease-in-out;
-      user-select: none;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50%      { opacity: 0.8; transform: scale(1.2); }
-    }
-
-    /* Hint moved UP on screen */
-    #hint {
-      position: fixed;
-      bottom: 70px;   /* originally 18px — now moved up */
-      left: 20px;
-      font-size: 0.75rem;
-      color: #333;
-      user-select: none;
-      opacity: 0.7;
-      transition: color 0.3s ease, opacity 0.3s ease;
-    }
-
-    #hint.active {
-      color: #666;
-      opacity: 1;
-    }
-
-    /* LinkedIn link stays bottom-right */
-    #link-wrapper {
-      position: fixed;
-      bottom: 18px;
-      right: 20px;
-      font-size: 0.8rem;
+    #next-link {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: #9fcdff;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity .25s ease;
     }
 
-    #link-wrapper.visible {
-      opacity: 0.9;
+    #next-link.visible {
+      opacity: .95;
       pointer-events: auto;
-    }
-
-    #link-wrapper a {
-      color: #8ab4ff;
-      text-decoration: none;
-      border-bottom: 1px dashed #8ab4ff66;
-    }
-
-    #link-wrapper a:hover {
-      border-bottom-style: solid;
     }
   </style>
 </head>
-
 <body>
+  <main class="game">
+    <div class="topbar">
+      <div id="progress"></div>
+      <button id="reset" aria-label="Reset game" title="Reset">↺</button>
+    </div>
 
-  <div id="message-main">This part of the story hasn’t arrived yet.</div>
-  <div id="status">You can wait. Or you can try something else.</div>
-  <div id="dot">•</div>
+    <div class="pads" role="group" aria-label="Pattern pads">
+      <button class="pad" data-pad="0" aria-label="Pad 1"></button>
+      <button class="pad" data-pad="1" aria-label="Pad 2"></button>
+      <button class="pad" data-pad="2" aria-label="Pad 3"></button>
+      <button class="pad" data-pad="3" aria-label="Pad 4"></button>
+    </div>
 
-  <div id="hint">tapping doesn’t help&nbsp;.&nbsp;.&nbsp;.&nbsp;probably</div>
-
-  <div id="link-wrapper">
-    While you wait, you can inspect my
-    <a href="https://www.linkedin.com/in/simplyben" target="_blank" rel="noreferrer">
-      professional disguise
-    </a>.
-  </div>
+    <div id="status" aria-live="polite"></div>
+    <a id="next-link" href="/chapter3/">continue →</a>
+  </main>
 
   <script>
-    let taps = 0;
-    const messageMain = document.getElementById("message-main");
-    const status = document.getElementById("status");
-    const hint = document.getElementById("hint");
-    const linkWrapper = document.getElementById("link-wrapper");
+    const padEls = Array.from(document.querySelectorAll('.pad'));
+    const progressEl = document.getElementById('progress');
+    const statusEl = document.getElementById('status');
+    const nextLinkEl = document.getElementById('next-link');
+    const resetEl = document.getElementById('reset');
 
-    document.body.addEventListener("pointerdown", () => {
-      taps++;
+    const rounds = [3, 4, 5];
+    let roundIndex = 0;
+    let pattern = [];
+    let cursor = 0;
+    let accepting = false;
 
-      if (taps === 3) {
-        hint.classList.add("active");
-        hint.textContent = "…you are still tapping.";
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const randPad = () => Math.floor(Math.random() * 4);
+
+    function setProgress() {
+      progressEl.textContent = `ROUND ${Math.min(roundIndex + 1, 3)}/3`;
+    }
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+    }
+
+    function resetRoundState() {
+      cursor = 0;
+      nextLinkEl.classList.remove('visible');
+      setProgress();
+    }
+
+    async function flashPad(index, duration = 300) {
+      const el = padEls[index];
+      if (!el) return;
+      el.classList.add('active');
+      await wait(duration);
+      el.classList.remove('active');
+    }
+
+    function buildPattern() {
+      const length = rounds[roundIndex];
+      pattern = Array.from({ length }, randPad);
+      cursor = 0;
+    }
+
+    async function playPattern() {
+      accepting = false;
+      setStatus('');
+      await wait(250);
+      for (const step of pattern) {
+        await flashPad(step, 260);
+        await wait(140);
+      }
+      accepting = true;
+      setStatus('');
+    }
+
+    async function failAndReplay() {
+      accepting = false;
+      cursor = 0;
+      setStatus('×');
+      await wait(500);
+      setStatus('');
+      playPattern();
+    }
+
+    function completeGame() {
+      accepting = false;
+      setStatus('•');
+      nextLinkEl.classList.add('visible');
+      setTimeout(() => {
+        window.location.href = '/chapter3/';
+      }, 900);
+    }
+
+    async function advanceRound() {
+      roundIndex += 1;
+      if (roundIndex >= rounds.length) {
+        completeGame();
+        return;
+      }
+      resetRoundState();
+      buildPattern();
+      await wait(500);
+      playPattern();
+    }
+
+    function onPadInput(index) {
+      if (!accepting) return;
+      flashPad(index, 110);
+
+      if (index !== pattern[cursor]) {
+        failAndReplay();
+        return;
       }
 
-      if (taps === 6) {
-        status.textContent = "Okay, you’re clearly not a passive observer.";
+      cursor += 1;
+      if (cursor >= pattern.length) {
+        advanceRound();
       }
+    }
 
-      if (taps === 9) {
-        linkWrapper.classList.add("visible");
-        status.textContent = "Fine. Here’s something vaguely sensible while this chapter loads itself in.";
-        messageMain.textContent = "The next chapter will show up when it’s ready. Unlike most roadmaps.";
-      }
+    function hardReset() {
+      roundIndex = 0;
+      resetRoundState();
+      buildPattern();
+      playPattern();
+    }
+
+    padEls.forEach((el, idx) => {
+      el.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        onPadInput(idx);
+      });
     });
+
+    resetEl.addEventListener('click', () => {
+      hardReset();
+    });
+
+    hardReset();
   </script>
 </body>
 </html>

@@ -24,12 +24,17 @@ Player progress for each chapter is stored locally (e.g. `localStorage.chapter1_
 
 ## Chapter 2
 
-Chapter 2 now exists as a standalone static page at `chapter2/index.html`.
+Chapter 2 now lives at `chapter2/index.html` as a standalone static puzzle called **Signal Relay**.
 
-- It keeps the same minimalist tone, with subtle tap interactions that progressively reveal more text.
-- After enough interaction, it surfaces an external “professional disguise” link as a temporary destination while the chapter evolves.
+- You must replay short direction sequences across 3 rounds.
+- It uses a minimalist 4-pad pattern memory game with click/tap controls for desktop and mobile play.
+- Completing the puzzle advances to `/chapter3/`.
 
-The Chapter 1 maze (`chapter1/index.html`) links directly into Chapter 2 when the exit is reached, so the two chapters now form a connected path in production.
+## Next Chapter (Pending)
+
+The former Chapter 2 placeholder has moved to `chapter3/index.html` and now acts as the current end-of-story holding page.
+
+The Chapter 1 maze (`chapter1/index.html`) still links to `/chapter2/`, so the main path remains connected.
 
 ## Development
 
@@ -44,6 +49,7 @@ Additional static chapter entry points are available at:
 
 - <http://localhost:5173/chapter1/>
 - <http://localhost:5173/chapter2/>
+- <http://localhost:5173/chapter3/>
 
 To create a production build:
 

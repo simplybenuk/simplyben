@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Next Chapter Pending</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #222 0, #050505 55%, #000 100%);
+      color: #c7c7c7;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+      touch-action: manipulation;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    #message-main {
+      font-size: 1rem;
+      opacity: 0.9;
+      user-select: none;
+      max-width: 80%;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    #dot {
+      margin-top: 18px;
+      font-size: 1.8rem;
+      opacity: 0.4;
+      animation: blink 1.6s infinite ease-in-out;
+      user-select: none;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.15; transform: scale(1); }
+      50%      { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    #hint {
+      position: fixed;
+      bottom: 70px;
+      left: 20px;
+      font-size: 0.75rem;
+      color: #333;
+      user-select: none;
+      opacity: 0.7;
+      transition: color 0.3s ease, opacity 0.3s ease;
+    }
+
+    #hint.active {
+      color: #666;
+      opacity: 1;
+    }
+
+    #link-wrapper {
+      position: fixed;
+      bottom: 18px;
+      right: 20px;
+      font-size: 0.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #link-wrapper.visible {
+      opacity: 0.9;
+      pointer-events: auto;
+    }
+
+    #link-wrapper a {
+      color: #8ab4ff;
+      text-decoration: none;
+      border-bottom: 1px dashed #8ab4ff66;
+    }
+
+    #link-wrapper a:hover {
+      border-bottom-style: solid;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="message-main">Next chapter pending.</div>
+  <div id="status">You can wait. Or you can try something else.</div>
+  <div id="dot">•</div>
+
+  <div id="hint">tapping doesn’t help&nbsp;.&nbsp;.&nbsp;.&nbsp;probably</div>
+
+  <div id="link-wrapper">
+    While you wait, you can inspect my
+    <a href="https://www.linkedin.com/in/simplyben" target="_blank" rel="noreferrer">
+      professional disguise
+    </a>.
+  </div>
+
+  <script>
+    let taps = 0;
+    const messageMain = document.getElementById("message-main");
+    const status = document.getElementById("status");
+    const hint = document.getElementById("hint");
+    const linkWrapper = document.getElementById("link-wrapper");
+
+    document.body.addEventListener("pointerdown", () => {
+      taps++;
+
+      if (taps === 3) {
+        hint.classList.add("active");
+        hint.textContent = "…you are still tapping.";
+      }
+
+      if (taps === 6) {
+        status.textContent = "Okay, you’re clearly not a passive observer.";
+      }
+
+      if (taps === 9) {
+        linkWrapper.classList.add("visible");
+        status.textContent = "Fine. Here’s something vaguely sensible while this chapter loads itself in.";
+        messageMain.textContent = "The next chapter will show up when it’s ready. Unlike most roadmaps.";
+      }
+    });
+  </script>
+</body>
+</html>
