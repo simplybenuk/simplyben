@@ -277,9 +277,10 @@
           completeGame();
         } else {
           round++;
+          round++;
           acceptingInput = false;
-          setStatus(`Round ${round - 1} complete. Preparing round ${round}…`, "success");
           setTimeout(() => {
+            setStatus(`Round ${round - 1} complete. Preparing round ${round}…`, "success");
             makePattern();
             showPattern();
           }, 800);
