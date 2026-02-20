@@ -230,9 +230,9 @@
         const btn = buttons.find((b) => b.dataset.dir === dir);
         if (btn) {
           btn.classList.add("active");
-          await new Promise((r) => setTimeout(r, 300));
+          await delay(300);
           btn.classList.remove("active");
-          await new Promise((r) => setTimeout(r, 160));
+          await delay(160);
         }
       }
 
