@@ -300,7 +300,7 @@
     });
 
     window.addEventListener("keydown", (event) => {
-      const dir = KEY_MAP[event.code] || KEY_MAP[event.key];
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       if (!dir) return;
       event.preventDefault();
       handleDirection(dir);
