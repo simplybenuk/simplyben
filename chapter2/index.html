@@ -3,137 +3,311 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Next Chapter</title>
-
+  <title>Chapter 2 — Signal Relay</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #06090f;
+      --panel: #121a29;
+      --panel-border: #2a3a57;
+      --accent: #7ec8ff;
+      --accent-strong: #42a5ff;
+      --ok: #6bf2a3;
+      --warn: #ff8f8f;
+      --text: #e6eefc;
+      --muted: #9aaccc;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #222 0, #050505 55%, #000 100%);
-      color: #c7c7c7;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, sans-serif;
-      overflow: hidden;
+      background: radial-gradient(circle at top, #101a2d 0, var(--bg) 62%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      padding: 16px;
       touch-action: manipulation;
+    }
+
+    .game {
+      width: min(640px, 100%);
+      background: linear-gradient(180deg, #17233a 0%, #0d1524 100%);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    h1 {
+      font-size: clamp(1.2rem, 3.6vw, 1.7rem);
+      margin: 0 0 6px;
+    }
+
+    .subtitle {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .status.error { color: var(--warn); }
+    .status.success { color: var(--ok); }
+
+    .sequence {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .step {
+      border: 1px solid #395070;
+      border-radius: 10px;
+      padding: 8px 6px;
       text-align: center;
-      letter-spacing: 0.04em;
+      color: #6f88ab;
+      background: #0d1728;
+      font-size: 0.84rem;
     }
 
-    #message-main {
-      font-size: 1rem;
-      opacity: 0.9;
+    .step.done {
+      border-color: #3f8f6e;
+      color: var(--ok);
+      background: #102920;
+    }
+
+    .step.current {
+      border-color: var(--accent-strong);
+      color: var(--accent);
+      box-shadow: inset 0 0 0 1px #1b2f4d;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .controls button {
+      min-height: 62px;
+      border-radius: 12px;
+      border: 1px solid #375580;
+      background: #10213a;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 700;
       user-select: none;
-      max-width: 80%;
+      touch-action: manipulation;
     }
 
-    #status {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-      user-select: none;
+    .controls button:active,
+    .controls button.active {
+      transform: translateY(1px) scale(0.98);
+      background: #173258;
+      border-color: var(--accent-strong);
     }
 
-    #dot {
-      margin-top: 18px;
-      font-size: 1.8rem;
-      opacity: 0.4;
-      animation: blink 1.6s infinite ease-in-out;
-      user-select: none;
+    .empty { visibility: hidden; }
+
+    .hint {
+      margin-top: 14px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50%      { opacity: 0.8; transform: scale(1.2); }
-    }
-
-    /* Hint moved UP on screen */
-    #hint {
-      position: fixed;
-      bottom: 70px;   /* originally 18px — now moved up */
-      left: 20px;
-      font-size: 0.75rem;
-      color: #333;
-      user-select: none;
-      opacity: 0.7;
-      transition: color 0.3s ease, opacity 0.3s ease;
-    }
-
-    #hint.active {
-      color: #666;
-      opacity: 1;
-    }
-
-    /* LinkedIn link stays bottom-right */
-    #link-wrapper {
-      position: fixed;
-      bottom: 18px;
-      right: 20px;
-      font-size: 0.8rem;
+    .next-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: #97d5ff;
+      text-decoration: none;
+      border-bottom: 1px dashed #97d5ff66;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity .25s ease;
     }
 
-    #link-wrapper.visible {
-      opacity: 0.9;
+    .next-link.visible {
+      opacity: 1;
       pointer-events: auto;
-    }
-
-    #link-wrapper a {
-      color: #8ab4ff;
-      text-decoration: none;
-      border-bottom: 1px dashed #8ab4ff66;
-    }
-
-    #link-wrapper a:hover {
-      border-bottom-style: solid;
     }
   </style>
 </head>
-
 <body>
+  <main class="game">
+    <h1>Chapter 2: Signal Relay</h1>
+    <p class="subtitle">Repeat each direction sequence correctly to open the gate.</p>
+    <div id="status" class="status">Round 1 of 3. Watch closely…</div>
+    <div id="sequence" class="sequence" aria-live="polite"></div>
 
-  <div id="message-main">This part of the story hasn’t arrived yet.</div>
-  <div id="status">You can wait. Or you can try something else.</div>
-  <div id="dot">•</div>
+    <div class="controls" role="group" aria-label="Direction controls">
+      <button class="empty" tabindex="-1" aria-hidden="true">.</button>
+      <button data-dir="up" aria-label="Up">▲</button>
+      <button class="empty" tabindex="-1" aria-hidden="true">.</button>
+      <button data-dir="left" aria-label="Left">◀</button>
+      <button data-dir="down" aria-label="Down">▼</button>
+      <button data-dir="right" aria-label="Right">▶</button>
+    </div>
 
-  <div id="hint">tapping doesn’t help&nbsp;.&nbsp;.&nbsp;.&nbsp;probably</div>
-
-  <div id="link-wrapper">
-    While you wait, you can inspect my
-    <a href="https://www.linkedin.com/in/simplyben" target="_blank" rel="noreferrer">
-      professional disguise
-    </a>.
-  </div>
+    <p class="hint">Desktop: Arrow keys or WASD. Mobile: tap the direction pad.</p>
+    <a id="next-link" class="next-link" href="/chapter3/">Continue to next chapter pending →</a>
+  </main>
 
   <script>
-    let taps = 0;
-    const messageMain = document.getElementById("message-main");
-    const status = document.getElementById("status");
-    const hint = document.getElementById("hint");
-    const linkWrapper = document.getElementById("link-wrapper");
+    const DIRECTIONS = ["up", "down", "left", "right"];
+    const SYMBOLS = { up: "▲", down: "▼", left: "◀", right: "▶" };
+    const KEY_MAP = {
+      KeyW: "up", ArrowUp: "up",
+      KeyS: "down", ArrowDown: "down",
+      KeyA: "left", ArrowLeft: "left",
+      KeyD: "right", ArrowRight: "right"
+    };
 
-    document.body.addEventListener("pointerdown", () => {
-      taps++;
+    const statusEl = document.getElementById("status");
+    const sequenceEl = document.getElementById("sequence");
+    const nextLinkEl = document.getElementById("next-link");
+    const buttons = Array.from(document.querySelectorAll("button[data-dir]"));
 
-      if (taps === 3) {
-        hint.classList.add("active");
-        hint.textContent = "…you are still tapping.";
+    let round = 1;
+    let pattern = [];
+    let cursor = 0;
+    let acceptingInput = false;
+
+    function randomDirection() {
+      return DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
+    }
+
+    function makePattern() {
+      const length = round + 2; // 3, 4, 5
+      pattern = Array.from({ length }, randomDirection);
+      cursor = 0;
+      renderPattern();
+    }
+
+    function renderPattern() {
+      sequenceEl.innerHTML = "";
+      pattern.forEach((dir, i) => {
+        const step = document.createElement("div");
+        step.className = "step";
+        if (i < cursor) {
+          step.classList.add("done");
+          step.textContent = SYMBOLS[dir];
+        } else if (i === cursor && acceptingInput) {
+          step.classList.add("current");
+          step.textContent = "?";
+        } else {
+          step.textContent = "•";
+        }
+        sequenceEl.appendChild(step);
+      });
+    }
+
+    function setStatus(text, cls = "") {
+      statusEl.className = `status ${cls}`.trim();
+      statusEl.textContent = text;
+    }
+
+    async function showPattern() {
+      acceptingInput = false;
+      renderPattern();
+      setStatus(`Round ${round} of 3. Memorise the pattern…`);
+
+      for (let i = 0; i < pattern.length; i++) {
+        const dir = pattern[i];
+        const btn = buttons.find((b) => b.dataset.dir === dir);
+        if (btn) {
+          btn.classList.add("active");
+          await delay(300);
+          btn.classList.remove("active");
+          await delay(160);
+        }
       }
 
-      if (taps === 6) {
-        status.textContent = "Okay, you’re clearly not a passive observer.";
+      acceptingInput = true;
+      setStatus(`Your turn: step ${cursor + 1} of ${pattern.length}`);
+      renderPattern();
+    }
+
+    function completeGame() {
+      acceptingInput = false;
+      setStatus("Signal stable. Path unlocked.", "success");
+      nextLinkEl.classList.add("visible");
+      setTimeout(() => {
+        window.location.href = "/chapter3/";
+      }, 1200);
+    }
+
+    function failStep() {
+      acceptingInput = false;
+      cursor = 0;
+      setStatus("Signal mismatch. Restarting round…", "error");
+      renderPattern();
+      setTimeout(() => {
+        showPattern();
+      }, 700);
+    }
+
+    function handleDirection(dir) {
+      if (!acceptingInput || !dir) return;
+
+      const expected = pattern[cursor];
+      if (dir !== expected) {
+        failStep();
+        return;
       }
 
-      if (taps === 9) {
-        linkWrapper.classList.add("visible");
-        status.textContent = "Fine. Here’s something vaguely sensible while this chapter loads itself in.";
-        messageMain.textContent = "The next chapter will show up when it’s ready. Unlike most roadmaps.";
+      cursor++;
+      renderPattern();
+
+      if (cursor >= pattern.length) {
+        if (round >= 3) {
+          completeGame();
+        } else {
+          round++;
+          round++;
+          acceptingInput = false;
+          setTimeout(() => {
+            setStatus(`Round ${round - 1} complete. Preparing round ${round}…`, "success");
+            makePattern();
+            showPattern();
+          }, 800);
+        }
+      } else {
+        setStatus(`Your turn: step ${cursor + 1} of ${pattern.length}`);
       }
+    }
+
+    buttons.forEach((button) => {
+      const dir = button.dataset.dir;
+      const onPress = (e) => {
+        if (e) e.preventDefault();
+        handleDirection(dir);
+      };
+      button.addEventListener("pointerdown", onPress);
     });
+
+    window.addEventListener("keydown", (event) => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      if (!dir) return;
+      event.preventDefault();
+      handleDirection(dir);
+    });
+
+    makePattern();
+    showPattern();
   </script>
 </body>
 </html>
