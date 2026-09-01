@@ -63,3 +63,15 @@ CV files and the public page aligned on the role history and project status.
   DOCX returns HTTP 200 and passes an archive integrity check.
 - The DOCX render was inspected page by page. Its accessibility audit and
   table geometry audit both report zero findings.
+
+## Agent review
+
+Verdict: READY FOR HUMAN TESTING
+
+- No blocking or should-fix findings remain within this change.
+- Human output testing should confirm the SourList repository destination, the
+  short Wolds Record and The Guide descriptions, and the role dates, titles,
+  and quantified outcomes against the working CV.
+- After successful human output testing, hand the accepted change to the
+  archive step. If content review finds changes, return the work to
+  development.
