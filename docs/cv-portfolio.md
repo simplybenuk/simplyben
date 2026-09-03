@@ -12,6 +12,9 @@ CV files and the public page aligned on the role history and project status.
 
 - `/cv/` is the canonical route.
 - `/portfolio/` redirects to `/cv/` and is not indexed as a second page.
+- Download links use `../public/cv/` because the live GitHub Pages site uses
+  its legacy repository-root source; this resolves to the files' published
+  URLs under `/public/cv/`.
 - The page is standalone HTML and CSS so it adds no runtime dependency or
   client-side data flow to the game.
 - The Vite build explicitly includes the existing homepage, chapter pages,
