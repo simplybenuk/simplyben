@@ -3,7 +3,7 @@
 The website is the richer portfolio surface. This document keeps the same
 factual source while staying concise enough to be useful as a recruiter-facing
 CV. Kahootz detail is intentionally limited to public-safe product leadership
-and Product Mole is marked as in progress, not shipped.
+and Product Mole is described as live and in use.
 """
 
 from __future__ import annotations
@@ -304,7 +304,7 @@ def add_section_heading(document, label, title):
     return heading
 
 
-def add_role(document, num_id, company, role, dates, context, bullets):
+def add_role(document, num_id, company, role, dates, context, bullets, context_link=None):
     paragraph = document.add_paragraph(style="CV Role")
     paragraph.paragraph_format.tab_stops.add_tab_stop(Inches(6.5), WD_TAB_ALIGNMENT.RIGHT)
     company_run = paragraph.add_run(company)
@@ -320,8 +320,14 @@ def add_role(document, num_id, company, role, dates, context, bullets):
     set_keep_with_next(paragraph)
 
     context_para = document.add_paragraph(style="CV Context")
-    context_run = context_para.add_run(context)
-    set_run_font(context_run, size=9.3, color=MUTED, italic=True)
+    if context_link and context.startswith(context_link[0]):
+        link_text, link_url = context_link
+        add_hyperlink(context_para, link_text, link_url, color=TEAL, size=9.3)
+        rest_run = context_para.add_run(context[len(link_text):])
+        set_run_font(rest_run, size=9.3, color=MUTED, italic=True)
+    else:
+        context_run = context_para.add_run(context)
+        set_run_font(context_run, size=9.3, color=MUTED, italic=True)
     set_keep_with_next(context_para)
 
     for text in bullets:
@@ -332,23 +338,17 @@ def add_project_table(document):
     rows = [
         (
             "Product Mole",
-            "BUILDING / IN PROGRESS\nKahootz AI / product work",
-            "A local-first context system for product managers and AI assistants. Building now as part of my Kahootz AI and product work. Not shipped.",
+            "LIVE / IN USE\nKahootz AI / product work",
+            "A local-first context system for product managers and AI assistants. Live and in use at Kahootz as part of my AI and product work.",
             [("GitHub repo", "https://github.com/simplybenuk/product-mole")],
         ),
         (
-            "SourList",
-            "LIVE PRODUCT\nSmall SaaS",
-            "A focused SaaS to-do list app and a hands-on experiment in taking a small product from idea to a working service.",
-            [("sourlist.com", "https://sourlist.com"), ("GitHub profile", "https://github.com/simplybenuk?tab=repositories")],
-        ),
-        (
             "Wolds Record",
-            "PUBLIC REPOS\nContent / product systems",
-            "A set of product and content builds, including a lightweight marketing site and supporting social-media workflow tools.",
+            "LIVE SAAS\nWCCRM / AI-built SaaS",
+            "The live Wolds Record app, alongside WCCRM, the SaaS product I built solo with AI.",
             [
-                ("Marketing repo", "https://github.com/simplybenuk/wolds-record-marketing"),
-                ("Social studio repo", "https://github.com/simplybenuk/wolds-record-social-media"),
+                ("Open app", "https://app.woldsrecord.com"),
+                ("WCCRM on GitHub", "https://github.com/simplybenuk/WCCRM"),
             ],
         ),
         (
@@ -364,6 +364,21 @@ def add_project_table(document):
             [
                 ("Live tool", "https://salary-renumeration-calculator.vercel.app"),
                 ("GitHub repo", "https://github.com/simplybenuk/salary-renumeration-calculator"),
+            ],
+        ),
+        (
+            "BWH Agent Toolkit",
+            "PUBLIC TOOLKIT\nOpen-source agent skills",
+            "A portable collection of agent skills for product discovery, specification, software delivery, engineering analysis, verification, and technical writing.",
+            [("GitHub repo", "https://github.com/simplybenuk/bwh-ai-workflow")],
+        ),
+        (
+            "BenOS",
+            "PUBLIC PROJECT\nLocal-first micro-apps",
+            "A local-first collection of tiny personal micro-apps. Browser-only tools with no accounts, sync, or cloud.",
+            [
+                ("Open BenOS", "https://simplybenuk.github.io/BenOS/"),
+                ("GitHub repo", "https://github.com/simplybenuk/BenOS"),
             ],
         ),
         (
@@ -540,7 +555,7 @@ def build_document(output_path: Path):
     add_section_heading(document, "Selected work", "Things I have built, shaped, and kept curious")
     project_intro = document.add_paragraph(style="CV Small")
     project_intro.paragraph_format.space_after = Pt(8)
-    project_intro_run = project_intro.add_run("Status is part of the description. Product Mole is building / not shipped.")
+    project_intro_run = project_intro.add_run("Status is part of the description. Product Mole is live and in use at Kahootz.")
     set_run_font(project_intro_run, name="Consolas", size=8.2, color=MUTED)
     add_project_table(document)
 
@@ -560,7 +575,9 @@ def build_document(output_path: Path):
         [
             "Introduced clearer ownership of roadmap, prioritisation, and product decision-making across the organisation.",
             "Introduced a development portfolio and reporting model across product development, internal work, client-facing work, support, and bug fixing.",
-            "Building Product Mole, a local, privacy-conscious AI insight-synthesis and measurement workflow. In progress, not shipped.",
+            "Product Mole is live and in use at Kahootz as part of my AI and product work.",
+            "Oversee support and security alongside product, including ISMS management and ISO 27001 and Cyber Essentials compliance.",
+            "Member of the Senior Leadership Team, contributing to company-level priorities beyond product.",
         ],
     )
     add_role(
@@ -597,13 +614,14 @@ def build_document(output_path: Path):
         "NHS England",
         "Senior Product Manager",
         "October 2016 to February 2023",
-        "FutureNHS collaboration platform and Local Health and Care Records programme",
+        "NHS Futures (formerly FutureNHS) collaboration platform and Local Health and Care Records programme",
         [
-            "Scaled FutureNHS from 8,000 to more than 50,000 monthly active users in three years by defining product vision and growth strategy for an enterprise collaboration service used across the health and care sector.",
+            "Scaled the FutureNHS collaboration service, now NHS Futures, from 8,000 to more than 50,000 monthly active users in three years by defining product vision and growth strategy for an enterprise collaboration service used across the health and care sector.",
             "Changed the registration process and reduced registration support tickets by 50%; supported a service desk handling 2,500+ tickets per month with a 15-minute average first reply and 90% satisfaction.",
             "Secured £1.5m investment for an NHS-owned open-source collaboration platform and led roadmap, discovery, and external suppliers through service assessment to private beta.",
             "Established an online community of more than 200 digital leaders and created an interactive maturity map used by NHS England's CIO.",
         ],
+        context_link=("NHS Futures", "https://future.nhs.uk/"),
     )
 
     add_section_heading(document, "Earlier career", "A foundation in delivery and systems")
