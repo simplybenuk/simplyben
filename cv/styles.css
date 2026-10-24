@@ -932,29 +932,6 @@ a:hover {
   background: var(--coral-bright);
 }
 
-.review-note {
-  max-width: 54rem;
-  margin-top: 1.4rem;
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-.review-note summary {
-  width: fit-content;
-  cursor: pointer;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
-  text-decoration: underline;
-  text-decoration-color: var(--coral-bright);
-  text-underline-offset: 0.25em;
-}
-
-.review-note p {
-  max-width: 52rem;
-  margin: 1rem 0 0;
-}
-
 .experience-layout {
   display: grid;
   grid-template-columns: minmax(12rem, 0.65fr) minmax(0, 1.35fr);
@@ -1528,7 +1505,6 @@ a:hover {
   .project-card__shape,
   .site-header,
   .hero__actions,
-  .review-note,
   .contact-panel,
   .site-footer p:nth-child(2) {
     display: none;
