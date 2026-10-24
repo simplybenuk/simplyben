@@ -344,11 +344,10 @@ def add_project_table(document):
         ),
         (
             "Wolds Record",
-            "LIVE SAAS\nWCCRM / AI-built SaaS",
-            "The live Wolds Record app, alongside WCCRM, the SaaS product I built solo with AI.",
+            "LIVE SAAS\nAI-built SaaS",
+            "The live Wolds Record app, a SaaS product I built solo with AI.",
             [
                 ("Open app", "https://app.woldsrecord.com"),
-                ("WCCRM on GitHub", "https://github.com/simplybenuk/WCCRM"),
             ],
         ),
         (

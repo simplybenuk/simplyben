@@ -29,8 +29,9 @@ CV files and the public page aligned on the role history and project status.
   February 2023.
 - FutureNHS is presented as NHS Futures (formerly FutureNHS), with a link to
   the current NHS Futures site.
-- Wolds Record focuses on the live app and WCCRM, described as a solo-built
-  SaaS product built with AI.
+- Wolds Record links only to the live app, described as a solo-built SaaS
+  product built with AI. The source repository is private, so it is not
+  linked or named.
 - BWH Agent Toolkit and BenOS are included as public projects with GitHub
   links and clear status labels.
 - SourList has been removed from the page and downloads because it is no
@@ -38,9 +39,6 @@ CV files and the public page aligned on the role history and project status.
 
 ## Assumptions to review
 
-- The supplied WCCRM URL currently returns 404 to an unauthenticated check.
-  Confirm that the repository is public and the URL is correct before final
-  publication.
 - The Wolds Record, BWH Agent Toolkit, BenOS, and The Guide descriptions are
   intentionally factual and restrained, based on the supplied links and
   public repository metadata.
@@ -86,9 +84,8 @@ CV files and the public page aligned on the role history and project status.
 Verdict: READY FOR HUMAN TESTING
 
 - No blocking or should-fix findings remain within this change.
-- Human output testing should confirm the WCCRM repository URL and visibility,
-  the short project descriptions, and the role dates, titles, and quantified
-  outcomes against the working CV.
+- Human output testing should confirm the short project descriptions and the
+  role dates, titles, and quantified outcomes against the working CV.
 - After successful human output testing, hand the accepted change to the
   archive step. If content review finds changes, return the work to
   development.
