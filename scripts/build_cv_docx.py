@@ -292,8 +292,9 @@ def add_bullet(document, num_id, text, lead=None):
 
 def add_section_heading(document, label, title):
     kicker = document.add_paragraph(style="CV Kicker")
+    kicker.paragraph_format.space_before = Pt(18)
     run = kicker.add_run(label.upper())
-    set_run_font(run, name="Consolas", size=8, color=CORAL, bold=True)
+    set_run_font(run, name="Consolas", size=10.5, color=CORAL, bold=True)
     set_keep_with_next(kicker)
 
     heading = document.add_paragraph(style="Heading 1")
@@ -354,21 +355,15 @@ def add_project_table(document):
             "The Guide",
             "EXPERIMENT\nAI / interactive story",
             "A mobile-first AI adventure experience.",
-            [("GitHub repo", "https://github.com/simplybenuk/the-guide")],
-        ),
-        (
-            "Effective Salary Calculator",
-            "LIVE TOOL\nUtility / decision aid",
-            "A simple tool for comparing the value of a total salary remuneration package.",
             [
-                ("Live tool", "https://salary-renumeration-calculator.vercel.app"),
-                ("GitHub repo", "https://github.com/simplybenuk/salary-renumeration-calculator"),
+                ("Open The Guide", "https://simplybenuk.github.io/the-guide/"),
+                ("GitHub repo", "https://github.com/simplybenuk/the-guide"),
             ],
         ),
         (
             "BWH Agent Toolkit",
-            "PUBLIC TOOLKIT\nOpen-source agent skills",
-            "A portable collection of agent skills for product discovery, specification, software delivery, engineering analysis, verification, and technical writing.",
+            "PUBLIC TOOLKIT\nAgentic workflow / skills",
+            "A workflow and set of skills for agentic working, from product discovery and specification through delivery, verification, and review.",
             [("GitHub repo", "https://github.com/simplybenuk/bwh-ai-workflow")],
         ),
         (
@@ -552,10 +547,6 @@ def build_document(output_path: Path):
     set_run_font(profile_run, size=10.5, color=INK)
 
     add_section_heading(document, "Selected work", "Things I have built, shaped, and kept curious")
-    project_intro = document.add_paragraph(style="CV Small")
-    project_intro.paragraph_format.space_after = Pt(8)
-    project_intro_run = project_intro.add_run("Status is part of the description. Product Mole is live and in use at Kahootz.")
-    set_run_font(project_intro_run, name="Consolas", size=8.2, color=MUTED)
     add_project_table(document)
 
     add_section_heading(document, "Experience", "Product leadership across SaaS and public services")
@@ -605,8 +596,6 @@ def build_document(output_path: Path):
         ],
     )
 
-    document.add_page_break()
-    add_section_heading(document, "Experience / continued", "NHS England")
     add_role(
         document,
         bullet_num_id,

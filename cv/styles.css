@@ -550,9 +550,12 @@ a:hover {
   background: var(--coral-bright);
 }
 
-.project-card--blue,
-.project-card--paper {
+.project-card--blue {
   grid-column: span 6;
+}
+
+.project-card--paper {
+  grid-column: span 7;
 }
 
 .project-card--blue {
@@ -829,25 +832,6 @@ a:hover {
   line-height: 1;
   text-shadow: 0.22rem 0.22rem 0 var(--ink);
   transform: rotate(8deg);
-}
-
-.project-card__shape--calculator {
-  top: 4.2rem;
-  right: 2rem;
-  display: flex;
-  gap: 0.3rem;
-  font-family: var(--mono);
-  font-size: 1.2rem;
-  color: var(--acid);
-  transform: rotate(9deg);
-}
-
-.project-card__shape--calculator span {
-  display: grid;
-  width: 2.4rem;
-  height: 2.4rem;
-  place-items: center;
-  border: 1px solid rgba(215, 242, 118, 0.6);
 }
 
 .project-card__shape--toolkit {
