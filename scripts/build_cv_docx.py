@@ -85,7 +85,7 @@ def set_cell_shading(cell, fill):
     shd.set(qn("w:val"), "clear")
 
 
-def set_cell_margins(cell, top=80, start=120, bottom=80, end=120):
+def set_cell_margins(cell, top=50, start=120, bottom=50, end=120):
     tc_pr = cell._tc.get_or_add_tcPr()
     tc_mar = get_or_add(tc_pr, "w:tcMar")
     for margin, value in (("top", top), ("start", start), ("bottom", bottom), ("end", end)):
@@ -292,7 +292,7 @@ def add_bullet(document, num_id, text, lead=None):
 
 def add_section_heading(document, label, title):
     kicker = document.add_paragraph(style="CV Kicker")
-    kicker.paragraph_format.space_before = Pt(18)
+    kicker.paragraph_format.space_before = Pt(14)
     run = kicker.add_run(label.upper())
     set_run_font(run, name="Consolas", size=10.5, color=CORAL, bold=True)
     set_keep_with_next(kicker)
@@ -367,6 +367,15 @@ def add_project_table(document):
             [("GitHub repo", "https://github.com/simplybenuk/bwh-ai-workflow")],
         ),
         (
+            "Clicksheet",
+            "LIVE EXTENSION\nChrome / agent context",
+            "An open-source Chrome extension that records a browser journey and turns it into a single visual contact sheet, so a coding agent can see how an interface works.",
+            [
+                ("Chrome Web Store", "https://chromewebstore.google.com/detail/clicksheet/dgnnbgckkjhofopbppdonmokionbajjp"),
+                ("GitHub repo", "https://github.com/simplybenuk/clicksheet"),
+            ],
+        ),
+        (
             "BenOS",
             "PUBLIC PROJECT\nLocal-first micro-apps",
             "A local-first collection of tiny personal micro-apps. Browser-only tools with no accounts, sync, or cloud.",
@@ -403,6 +412,7 @@ def add_project_table(document):
 
     for name, meta, description, links in rows:
         row = table.add_row()
+        get_or_add(row._tr.get_or_add_trPr(), "w:cantSplit").set(qn("w:val"), "true")
         left, right = row.cells
         set_cell_shading(left, LIGHT_BLUE)
         left_para = left.paragraphs[0]
@@ -466,7 +476,7 @@ def build_document(output_path: Path):
     set_style_spacing(styles["Subtitle"], before=0, after=10, line=1.0)
 
     set_style_font(styles["Heading 1"], size=16, color=TEAL, bold=True)
-    set_style_spacing(styles["Heading 1"], before=16, after=8, line=1.0)
+    set_style_spacing(styles["Heading 1"], before=8, after=8, line=1.0)
     set_style_font(styles["Heading 2"], size=13, color=TEAL, bold=True)
     set_style_spacing(styles["Heading 2"], before=12, after=6, line=1.0)
     set_style_font(styles["Heading 3"], size=12, color=INK, bold=True)
@@ -517,7 +527,7 @@ def build_document(output_path: Path):
     set_run_font(subtitle_run, size=13, color=TEAL, bold=True)
 
     contact = document.add_paragraph(style="CV Small")
-    contact.paragraph_format.space_after = Pt(15)
+    contact.paragraph_format.space_after = Pt(12)
     contact_run = contact.add_run("Lincolnshire, UK  /  Remote-first  /  ")
     set_run_font(contact_run, size=9, color=MUTED)
     add_hyperlink(contact, "benjaminpheap@gmail.com", "mailto:benjaminpheap@gmail.com", size=9)
@@ -529,7 +539,7 @@ def build_document(output_path: Path):
     current = document.add_paragraph(style="CV Small")
     set_paragraph_shading(current, ACID)
     current.paragraph_format.space_before = Pt(3)
-    current.paragraph_format.space_after = Pt(15)
+    current.paragraph_format.space_after = Pt(10)
     current.paragraph_format.left_indent = Inches(0.12)
     current_run = current.add_run("CURRENTLY  ")
     set_run_font(current_run, name="Consolas", size=8, color=TEAL, bold=True)
