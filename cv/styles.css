@@ -550,12 +550,9 @@ a:hover {
   background: var(--coral-bright);
 }
 
-.project-card--blue {
-  grid-column: span 6;
-}
-
+.project-card--blue,
 .project-card--paper {
-  grid-column: span 7;
+  grid-column: span 6;
 }
 
 .project-card--blue {
@@ -563,7 +560,7 @@ a:hover {
 }
 
 .project-card--dark {
-  grid-column: span 6;
+  grid-column: span 7;
   border-color: var(--ink);
   background: var(--ink);
   color: var(--white);
@@ -832,6 +829,24 @@ a:hover {
   line-height: 1;
   text-shadow: 0.22rem 0.22rem 0 var(--ink);
   transform: rotate(8deg);
+}
+
+.project-card__shape--clicksheet {
+  top: 4.4rem;
+  right: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1.6rem);
+  gap: 0.3rem;
+  transform: rotate(8deg);
+}
+
+.project-card__shape--clicksheet span {
+  height: 1.1rem;
+  border: 1px solid rgba(215, 242, 118, 0.6);
+}
+
+.project-card__shape--clicksheet span:nth-child(5) {
+  background: var(--acid);
 }
 
 .project-card__shape--toolkit {
